@@ -37,10 +37,10 @@ Test the client in your browser: [http://localhost:FIXME](http://localhost:FIXME
 
 Click the Deploy to Heroku button at the top or use the command line commands below.
 
-Create a new C Heroku app:
+Create a new Java Heroku app:
 
 ```
-heroku create --stack cedar --buildpack http://github.com/heroku/heroku-buildpack-c.git [APP_NAME]
+TODO
 ```
 
 Push code to Heroku servers:
