@@ -19,8 +19,8 @@ public class BattleSnakeHandlers {
     public Object handleMove(Map<String, Object> requestBody) {
         // Dummy Response
         Map<String, Object> responseObject = new HashMap<String, Object>();
-        responseObject.put("move", "up");
-        responseObject.put("taunt", "going up!");
+        responseObject.put("move", "down");
+        responseObject.put("taunt", "going down!");
         return responseObject;
     }
     
