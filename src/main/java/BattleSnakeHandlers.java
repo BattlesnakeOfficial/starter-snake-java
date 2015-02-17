@@ -26,7 +26,8 @@ public class BattleSnakeHandlers {
     
     public Object handleEnd(Map<String, Object> requestBody) {
         // No response required
-        return null;
+        Map<String, Object> responseObject = new HashMap<String, Object>();
+        return responseObject;
     }
 
 }
