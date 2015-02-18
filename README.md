@@ -8,6 +8,11 @@ You'll need a working Java 7 development enviroment with [Maven](http://maven.ap
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
+### App Overview
+
+- `BattleSnakeHandler.java` is where the three actions must be implemented: `start`, `move`, `end`
+
+- `Main.java` handles the HttpServlet and request routing, as well as JSON parsing and rendering.
 
 ### Running the AI locally
 
