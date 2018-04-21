@@ -1,3 +1,3 @@
 # battlesnake-legacy-java
 
-This battlesnake client has been deprecated. See [www.battlesnake.io/readme](http://www.battlesnake.io/readme).
+This battlesnake is waiting for some noble programmer to bring it back to life.
