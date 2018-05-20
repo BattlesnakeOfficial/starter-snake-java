@@ -1,6 +1,5 @@
-# starter-snake-java
-
-
+starter-snake-java
+===
 
 A simple [Battlesnake AI](http://battlesnake.io) written in Java. 
 
@@ -26,7 +25,7 @@ mvn exec:exec
 
 Snake will start up on port 8080
 
-This snake has also been run from with Intellij successfully. 
+This snake has also been run from within Intellij successfully. 
 
 Run the tests
 ---
