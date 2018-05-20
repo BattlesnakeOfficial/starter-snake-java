@@ -1,1 +1,1 @@
-web:    java -cp target/classes:target/dependency/* Main
+web: java -jar target/starter-snake-java.jar
