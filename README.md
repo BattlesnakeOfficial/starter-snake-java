@@ -3,8 +3,8 @@
 Requirements
 ---
 
-- Install JDK 8 [http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html]()
-- Install Maven [https://maven.apache.org/install.html]()
+- Install JDK 8 [http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+- Install Maven [https://maven.apache.org/install.html](https://maven.apache.org/install.html)
 
 Running the snake
 ---
@@ -15,6 +15,7 @@ mvn exec:exec
 
 Snake will start up on port 8080
 
+This snake has also been run from with Intellij successfully. 
 
 Run the tests
 ---
