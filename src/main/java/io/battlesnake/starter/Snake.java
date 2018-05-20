@@ -32,6 +32,7 @@ public class Snake {
         if (port != null) {
             LOG.info("Found system provided port: {}", port);
         } else {
+            LOG.info("Using default port: {}", port);
             port = "8080";
         }
         port(Integer.parseInt(port));
