@@ -28,7 +28,13 @@ public class Snake {
      * @param args are ignored.
      */
     public static void main(String[] args) {
-        port(8080);
+        String port = System.getProperty("PORT");
+        if (port != null) {
+            LOG.info("Found system provided port: {}", port);
+        } else {
+            port = "8080";
+        }
+        port(Integer.parseInt(port));
         post("/start", HANDLER::process, JSON_MAPPER::writeValueAsString);
         post("/move", HANDLER::process, JSON_MAPPER::writeValueAsString);
         post("/end", HANDLER::process, JSON_MAPPER::writeValueAsString);
