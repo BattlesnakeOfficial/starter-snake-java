@@ -1,5 +1,6 @@
 package io.battlesnake.starter;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,16 +56,16 @@ public class Snake {
          */
         public Map process(Request req, Response res) {
             try {
-                Map bodyMap = JSON_MAPPER.readValue(req.body(), Map.class);
+                JsonNode jsonRequest = JSON_MAPPER.readTree(req.body());
                 String uri = req.uri();
                 LOG.info("{} called with: {}", uri, req.body());
-                Map snakeResponse = null;
+                Map snakeResponse;
                 if (uri.equals("/start")) {
-                    snakeResponse = start(bodyMap);
+                    snakeResponse = start(jsonRequest);
                 } else if (uri.equals("/move")) {
-                    snakeResponse = move(bodyMap);
+                    snakeResponse = move(jsonRequest);
                 } else if (uri.equals("/end")) {
-                    snakeResponse = end(bodyMap);
+                    snakeResponse = end(jsonRequest);
                 } else {
                     throw new IllegalAccessError("Strange call made to the snake: " + uri);
                 }
@@ -79,11 +80,11 @@ public class Snake {
         /**
          * /start is called by the engine when a game is first run.
          *
-         * @param bodyMap a map containing the JSON sent to this snake. See the spec for details of what this contains.
+         * @param jsonStartRequest a map containing the JSON sent to this snake. See the spec for details of what this contains.
          * @return a response back to the engine containing the snake setup values.
          */
-        public Map<String, String> start(Map bodyMap) {
-            Map<String, String> response = new HashMap();
+        public Map<String, String> start(JsonNode jsonStartRequest) {
+            Map<String, String> response = new HashMap<>();
             response.put("color", "#ff00ff");
             return response;
         }
@@ -91,11 +92,11 @@ public class Snake {
         /**
          * /move is called by the engine for each turn the snake has.
          *
-         * @param bodyMap a map containing the JSON sent to this snake. See the spec for details of what this contains.
+         * @param jsonMoveRequest a map containing the JSON sent to this snake. See the spec for details of what this contains.
          * @return a response back to the engine containing snake movement values.
          */
-        public Map<String, String> move(Map bodyMap) {
-            Map<String, String> response = new HashMap();
+        public Map<String, String> move(JsonNode jsonMoveRequest) {
+            Map<String, String> response = new HashMap<>();
             response.put("move", "right");
             return response;
         }
@@ -103,11 +104,11 @@ public class Snake {
         /**
          * /end is called by the engine when a game is complete.
          *
-         * @param bodyMap a map containing the JSON sent to this snake. See the spec for details of what this contains.
+         * @param jsonEndRequest a map containing the JSON sent to this snake. See the spec for details of what this contains.
          * @return responses back to the engine are ignored.
          */
-        public Map<String, String> end(Map bodyMap) {
-            Map<String, String> response = new HashMap();
+        public Map<String, String> end(JsonNode jsonEndRequest) {
+            Map<String, String> response = new HashMap<>();
             return response;
         }
     }
