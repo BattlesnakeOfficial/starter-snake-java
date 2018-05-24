@@ -1,7 +1,7 @@
 starter-snake-java
 ===
 
-https://travis-ci.org/battlesnakeio/starter-snake-java.svg?branch=master
+[![Build Status](https://travis-ci.org/battlesnakeio/starter-snake-java.svg?branch=master)](https://travis-ci.org/battlesnakeio/starter-snake-java)
 
 A simple [Battlesnake AI](http://battlesnake.io) written in Java. 
 
