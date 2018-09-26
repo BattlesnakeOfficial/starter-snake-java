@@ -38,6 +38,7 @@ public class Snake {
         }
         port(Integer.parseInt(port));
         post("/start", HANDLER::process, JSON_MAPPER::writeValueAsString);
+        post("/ping", HANDLER::process, JSON_MAPPER::writeValueAsString);
         post("/move", HANDLER::process, JSON_MAPPER::writeValueAsString);
         post("/end", HANDLER::process, JSON_MAPPER::writeValueAsString);
     }
@@ -48,24 +49,31 @@ public class Snake {
     public static class Handler {
 
         /**
+         * For the ping request
+         */
+        private static final Map<String, String> EMPTY = new HashMap<>();
+
+        /**
          * Generic processor that prints out the request and response from the methods.
          *
          * @param req
          * @param res
          * @return
          */
-        public Map process(Request req, Response res) {
+        public Map<String, String> process(Request req, Response res) {
             try {
-                JsonNode jsonRequest = JSON_MAPPER.readTree(req.body());
+                JsonNode parsedRequest = JSON_MAPPER.readTree(req.body());
                 String uri = req.uri();
                 LOG.info("{} called with: {}", uri, req.body());
-                Map snakeResponse;
+                Map<String, String> snakeResponse;
                 if (uri.equals("/start")) {
-                    snakeResponse = start(jsonRequest);
+                    snakeResponse = start(parsedRequest);
+                } else if (uri.equals("/ping")) {
+                    snakeResponse = move(parsedRequest);
                 } else if (uri.equals("/move")) {
-                    snakeResponse = move(jsonRequest);
+                    snakeResponse = move(parsedRequest);
                 } else if (uri.equals("/end")) {
-                    snakeResponse = end(jsonRequest);
+                    snakeResponse = end(parsedRequest);
                 } else {
                     throw new IllegalAccessError("Strange call made to the snake: " + uri);
                 }
@@ -78,12 +86,23 @@ public class Snake {
         }
 
         /**
+         * /ping is called by the play application during the tournament or on play.battlesnake.io to make sure your
+         * snake is still alive.
+         *
+         * @param pingRequest a map containing the JSON sent to this snake. See the spec for details of what this contains.
+         * @return an empty response.
+         */
+        public Map<String, String> ping() {
+            return EMPTY;
+        }
+
+        /**
          * /start is called by the engine when a game is first run.
          *
-         * @param jsonStartRequest a map containing the JSON sent to this snake. See the spec for details of what this contains.
+         * @param startRequest a map containing the JSON sent to this snake. See the spec for details of what this contains.
          * @return a response back to the engine containing the snake setup values.
          */
-        public Map<String, String> start(JsonNode jsonStartRequest) {
+        public Map<String, String> start(JsonNode startRequest) {
             Map<String, String> response = new HashMap<>();
             response.put("color", "#ff00ff");
             return response;
@@ -92,10 +111,10 @@ public class Snake {
         /**
          * /move is called by the engine for each turn the snake has.
          *
-         * @param jsonMoveRequest a map containing the JSON sent to this snake. See the spec for details of what this contains.
+         * @param moveRequest a map containing the JSON sent to this snake. See the spec for details of what this contains.
          * @return a response back to the engine containing snake movement values.
          */
-        public Map<String, String> move(JsonNode jsonMoveRequest) {
+        public Map<String, String> move(JsonNode moveRequest) {
             Map<String, String> response = new HashMap<>();
             response.put("move", "right");
             return response;
@@ -104,10 +123,10 @@ public class Snake {
         /**
          * /end is called by the engine when a game is complete.
          *
-         * @param jsonEndRequest a map containing the JSON sent to this snake. See the spec for details of what this contains.
+         * @param endRequest a map containing the JSON sent to this snake. See the spec for details of what this contains.
          * @return responses back to the engine are ignored.
          */
-        public Map<String, String> end(JsonNode jsonEndRequest) {
+        public Map<String, String> end(JsonNode endRequest) {
             Map<String, String> response = new HashMap<>();
             return response;
         }

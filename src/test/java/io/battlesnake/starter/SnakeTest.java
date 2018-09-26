@@ -27,6 +27,12 @@ public class SnakeTest {
     }
 
     @Test
+    void pingTest() throws IOException {
+        Map<String, String> response = handler.ping();
+        assertEquals("{}", response.toString());
+    }
+
+    @Test
     void startTest() throws IOException {
         JsonNode startRequest = OBJECT_MAPPER.readTree("{}");
         Map<String, String> response = handler.start(startRequest);
