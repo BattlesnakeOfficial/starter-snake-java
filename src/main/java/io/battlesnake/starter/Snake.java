@@ -69,7 +69,7 @@ public class Snake {
                 if (uri.equals("/start")) {
                     snakeResponse = start(parsedRequest);
                 } else if (uri.equals("/ping")) {
-                    snakeResponse = move(parsedRequest);
+                    snakeResponse = ping();
                 } else if (uri.equals("/move")) {
                     snakeResponse = move(parsedRequest);
                 } else if (uri.equals("/end")) {
