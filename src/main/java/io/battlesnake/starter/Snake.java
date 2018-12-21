@@ -12,6 +12,7 @@ import java.util.Map;
 
 import static spark.Spark.port;
 import static spark.Spark.post;
+import static spark.Spark.get;
 
 /**
  * Snake server that deals with requests from the snake engine.
@@ -37,6 +38,8 @@ public class Snake {
             port = "8080";
         }
         port(Integer.parseInt(port));
+        get("/", (req, res) -> "Battlesnake documentation can be found at " + 
+            "<a href=\"https://docs.battlesnake.io\">https://docs.battlesnake.io</a>.");
         post("/start", HANDLER::process, JSON_MAPPER::writeValueAsString);
         post("/ping", HANDLER::process, JSON_MAPPER::writeValueAsString);
         post("/move", HANDLER::process, JSON_MAPPER::writeValueAsString);
