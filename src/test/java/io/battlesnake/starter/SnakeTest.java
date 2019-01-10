@@ -11,7 +11,6 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 public class SnakeTest {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
