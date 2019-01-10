@@ -3,7 +3,7 @@ starter-snake-java
 
 [![Build Status](https://travis-ci.org/battlesnakeio/starter-snake-java.svg?branch=master)](https://travis-ci.org/battlesnakeio/starter-snake-java)
 
-A simple [Battlesnake AI](http://battlesnake.io) written in Java. 
+A simple [Battlesnake AI](http://battlesnake.io) written in Java.
 
 Visit [https://github.com/battlesnakeio/community/blob/master/starter-snakes.md](https://github.com/battlesnakeio/community/blob/master/starter-snakes.md) 
 for API documentation and instructions for running your AI.
