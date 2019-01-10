@@ -5,7 +5,7 @@ starter-snake-java
 
 A simple [Battlesnake AI](http://battlesnake.io) written in Java.
 
-Visit [https://github.com/battlesnakeio/community/blob/master/starter-snakes.md](https://github.com/battlesnakeio/community/blob/master/starter-snakes.md) 
+Visit [https://docs.battlesnake.io](https://docs.battlesnake.io) 
 for API documentation and instructions for running your AI.
 
 This snake is built using a lightweight http server Spark framework - [http://sparkjava.com/documentation](http://sparkjava.com/documentation)
