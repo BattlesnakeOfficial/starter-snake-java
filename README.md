@@ -22,7 +22,7 @@ Running the snake
 ---
 
 ```bash
-mvn exec:exec
+mvn compile exec:exec
 ```
 
 Snake will start up on port 8080
@@ -33,7 +33,7 @@ Run the tests
 ---
 
 ```bash
-mvn test
+mvn compile test
 ```
 
 
@@ -41,7 +41,7 @@ Executable Jar
 ---
 
 ```bash
-mvn package
+mvn compile package
 ```
 
 Will result in a jar file in `target` called `starter-snake-java.jar`
