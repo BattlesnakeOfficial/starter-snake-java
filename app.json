@@ -1,0 +1,6 @@
+{
+  "name": "Battlesnake Java Starter Snake",
+  "description": "A sample starter snake for battlesnake written in java",
+  "repository": "https://github.com/battlesnakeio/starter-snake-java",
+  "keywords": ["battlesnake", "java"]
+}
