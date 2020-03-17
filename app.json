@@ -1,6 +1,9 @@
 {
   "name": "Battlesnake Java Starter Snake",
-  "description": "A sample starter snake for battlesnake written in java",
-  "repository": "https://github.com/battlesnakeio/starter-snake-java",
-  "keywords": ["battlesnake", "java"]
+  "description": "A sample starter snake for Battlesnake written in Java",
+  "repository": "https://github.com/battlesnakeofficial/starter-snake-java",
+  "keywords": [
+    "battlesnake",
+    "java"
+  ]
 }
