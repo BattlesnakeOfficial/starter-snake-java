@@ -50,7 +50,7 @@
                     <arguments>
                         <argument>-classpath</argument>
                         <classpath/>
-                        <argument>io.battlesnake.starter.Snake</argument>
+                        <argument>com.battlesnake.starter.Snake</argument>
                     </arguments>
                 </configuration>
             </plugin>
@@ -94,7 +94,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        io.battlesnake.starter.Snake
+                                        com.battlesnake.starter.Snake
                                     </mainClass>
                                 </manifest>
                             </archive>

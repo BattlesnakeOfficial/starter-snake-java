@@ -1,4 +1,4 @@
-package io.battlesnake.starter;
+package com.battlesnake.starter;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -7,9 +7,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SnakeTest {
 
@@ -28,21 +31,30 @@ public class SnakeTest {
     @Test
     void pingTest() throws IOException {
         Map<String, String> response = handler.ping();
-        assertEquals("{}", response.toString());
+        assertEquals("{message=pong}", response.toString());
     }
 
     @Test
     void startTest() throws IOException {
         JsonNode startRequest = OBJECT_MAPPER.readTree("{}");
         Map<String, String> response = handler.start(startRequest);
-        assertEquals("#ff00ff", response.get("color"));
+        assertEquals("#888888", response.get("color"));
+        assertEquals("regular", response.get("headType"));
+        assertEquals("regular", response.get("tailType"));
     }
 
     @Test
     void moveTest() throws IOException {
         JsonNode moveRequest = OBJECT_MAPPER.readTree("{}");
         Map<String, String> response = handler.move(moveRequest);
-        assertEquals("right", response.get("move"));
+
+        List<String> options = new ArrayList<String>();
+        options.add("up");
+        options.add("down");
+        options.add("left");
+        options.add("right");
+
+        assertTrue(options.contains(response.get("move")));
     }
 
     @Test

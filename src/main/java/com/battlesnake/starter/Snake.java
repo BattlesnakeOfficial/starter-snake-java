@@ -1,5 +1,6 @@
-package io.battlesnake.starter;
+package com.battlesnake.starter;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -9,15 +10,17 @@ import spark.Response;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import static spark.Spark.port;
 import static spark.Spark.post;
 import static spark.Spark.get;
 
 /**
- * Snake server that deals with requests from the snake engine.
- * Just boiler plate code.  See the readme to get started.
- * It follows the spec here: https://github.com/battlesnakeio/docs/tree/master/apis/snake
+ * This is a simple Battlesnake server written in Java.
+ * 
+ * For instructions see
+ * https://github.com/BattlesnakeOfficial/starter-snake-java/README.md
  */
 public class Snake {
     private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
@@ -38,8 +41,7 @@ public class Snake {
             port = "8080";
         }
         port(Integer.parseInt(port));
-        get("/", (req, res) -> "Battlesnake documentation can be found at " + 
-            "<a href=\"https://docs.battlesnake.io\">https://docs.battlesnake.io</a>.");
+        get("/", (req, res) -> "Your Battlesnake is alive!");
         post("/start", HANDLER::process, JSON_MAPPER::writeValueAsString);
         post("/ping", HANDLER::process, JSON_MAPPER::writeValueAsString);
         post("/move", HANDLER::process, JSON_MAPPER::writeValueAsString);
@@ -89,49 +91,81 @@ public class Snake {
         }
 
         /**
-         * /ping is called by the play application during the tournament or on play.battlesnake.io to make sure your
-         * snake is still alive.
-         *
-         * @param pingRequest a map containing the JSON sent to this snake. See the spec for details of what this contains.
-         * @return an empty response.
+         * The Battlesnake engine calls this function to make sure your snake is
+         * working.
+         * 
+         * @return an dummy response. The Battlesnake engine will not read this data.
          */
         public Map<String, String> ping() {
-            return EMPTY;
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "pong");
+            return response;
         }
 
         /**
-         * /start is called by the engine when a game is first run.
+         * This method is called everytime your Battlesnake is entered into a game.
+         * 
+         * Use this method to decide how your Battlesnake is going to look on the board.
          *
-         * @param startRequest a map containing the JSON sent to this snake. See the spec for details of what this contains.
-         * @return a response back to the engine containing the snake setup values.
+         * @param startRequest a JSON data map containing the information about the game
+         *                     that is about to be played.
+         * @return a response back to the engine containing the Battlesnake setup
+         *         values.
          */
         public Map<String, String> start(JsonNode startRequest) {
+            LOG.info("START");
+
             Map<String, String> response = new HashMap<>();
-            response.put("color", "#ff00ff");
+            response.put("color", "#888888");
+            response.put("headType", "regular");
+            response.put("tailType", "regular");
             return response;
         }
 
         /**
-         * /move is called by the engine for each turn the snake has.
+         * This method is called on every turn of a game. It's how your snake decides
+         * where to move.
+         * 
+         * Valid moves are "up", "down", "left", or "right".
          *
-         * @param moveRequest a map containing the JSON sent to this snake. See the spec for details of what this contains.
-         * @return a response back to the engine containing snake movement values.
+         * @param moveRequest a map containing the JSON sent to this snake. Use this
+         *                    data to decide your next move.
+         * @return a response back to the engine containing Battlesnake movement values.
          */
         public Map<String, String> move(JsonNode moveRequest) {
+            try {
+                LOG.info("Data: {}", JSON_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(moveRequest));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+
+            String[] possibleMoves = { "up", "down", "left", "right" };
+
+            // Choose a random direction to move in
+            int choice = new Random().nextInt(possibleMoves.length);
+            String move = possibleMoves[choice];
+
+            LOG.info("MOVE {}", move);
+
             Map<String, String> response = new HashMap<>();
-            response.put("move", "right");
+            response.put("move", move);
             return response;
         }
 
         /**
-         * /end is called by the engine when a game is complete.
+         * This method is called when a game your Battlesnake was in ends.
+         * 
+         * It is purely for informational purposes, you don't have to make any decisions
+         * here.
          *
-         * @param endRequest a map containing the JSON sent to this snake. See the spec for details of what this contains.
+         * @param endRequest a map containing the JSON sent to this snake. Use this data
+         *                   to know which game has ended
          * @return responses back to the engine are ignored.
          */
         public Map<String, String> end(JsonNode endRequest) {
-            Map<String, String> response = new HashMap<>();
-            return response;
+
+            LOG.info("END");
+            return EMPTY;
         }
     }
 
