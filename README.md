@@ -1,3 +1,5 @@
+**WARNING:** This Battlesnake project implements an older version of the [Battlesnake API](https://docs.battlesnake.com/references/api). While it's still a great starting point, some additional work is required to make your Battlesnake compatible with the latest version of the platform.
+
 # A simple [Battlesnake](http://play.battlesnake.com) written in Java.
 
 This is a basic implementation of the [Battlesnake API](https://docs.battlesnake.com/snake-api). It's a great starting point for anyone wanting to program their first Battlesnake using Java. It comes ready to deploy to [Heroku](https://heroku.com), although you can use other cloud providers if you'd like.
