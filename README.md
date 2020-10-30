@@ -107,7 +107,7 @@ Once the Repl has restarted you can [create a new game](https://play.battlesnake
 
 Now you have everything you need to start making your Battlesnake super smart! Here are a few more helpful tips:
 
-* Keeping your logs open in a second window (using `heroku logs --tail`) is helpful for watching server activity and debugging any problems with your Battlesnake.
+* Keeping your Repl open in a second window while games are running is helpful for watching server activity and debugging any problems with your Battlesnake.
 
 * The projected is configured with a logger that you can use the code [LOG.info()](http://www.slf4j.org/apidocs/org/slf4j/Logger.html) to output information to your server logs. This is very useful for debugging logic in your code during Battlesnake games.
 
