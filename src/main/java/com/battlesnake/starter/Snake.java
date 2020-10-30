@@ -43,7 +43,6 @@ public class Snake {
         port(Integer.parseInt(port));
         get("/",  HANDLER::process, JSON_MAPPER::writeValueAsString);
         post("/start", HANDLER::process, JSON_MAPPER::writeValueAsString);
-        post("/ping", HANDLER::process, JSON_MAPPER::writeValueAsString);
         post("/move", HANDLER::process, JSON_MAPPER::writeValueAsString);
         post("/end", HANDLER::process, JSON_MAPPER::writeValueAsString);
     }
@@ -145,7 +144,7 @@ public class Snake {
 
                 String gameId = moveRequest.get("game").get("id").asText();
                 int height = moveRequest.get("board").get("height").asInt();
-                
+
             */
 
             String[] possibleMoves = { "up", "down", "left", "right" };
