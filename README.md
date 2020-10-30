@@ -1,4 +1,4 @@
-**WARNING:** This Battlesnake project implements an older version of the [Battlesnake API](https://docs.battlesnake.com/references/api). While it's still a great starting point, some additional work is required to make your Battlesnake compatible with the latest version of the platform.
+
 
 # A simple [Battlesnake](http://play.battlesnake.com) written in Java.
 
@@ -74,12 +74,14 @@ Now you're ready to start customizing your Battlesnake and improving its algorit
 
 ### Changing Appearance
 
-Locate the `start` method inside [Snake.java](src/main/java/com/battlesnake/starter/Snake.javaserver.py#L114). You should see code that looks like this:
+Locate the `index` method inside [Snake.java](src/main/java/com/battlesnake/starter/Snake.javaserver.py#L102). You should see code that looks like this:
 ```java
 Map<String, String> response = new HashMap<>();
-response.put("color", "#888888");
-response.put("headType", "regular");
-response.put("tailType", "regular");
+response.put("apiversion", "1");
+response.put("author", "");           // TODO: Your Battlesnake Username
+response.put("color", "#888888");     // TODO: Personalize
+response.put("headType", "default");  // TODO: Personalize
+response.put("tailType", "default");  // TODO: Personalize
 return response;
 ```
 

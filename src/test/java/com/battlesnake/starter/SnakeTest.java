@@ -29,18 +29,22 @@ public class SnakeTest {
     }
 
     @Test
-    void pingTest() throws IOException {
-        Map<String, String> response = handler.ping();
-        assertEquals("{message=pong}", response.toString());
+    void indexTest() throws IOException {
+        
+        
+        Map<String, String> response = handler.index();
+        assertEquals("#888888", response.get("color"));
+        assertEquals("default", response.get("headType"));
+        assertEquals("default", response.get("tailType"));
     }
 
     @Test
     void startTest() throws IOException {
         JsonNode startRequest = OBJECT_MAPPER.readTree("{}");
-        Map<String, String> response = handler.start(startRequest);
-        assertEquals("#888888", response.get("color"));
-        assertEquals("regular", response.get("headType"));
-        assertEquals("regular", response.get("tailType"));
+        Map<String, String> response = handler.end(startRequest);
+        assertEquals(0, response.size());
+
+
     }
 
     @Test

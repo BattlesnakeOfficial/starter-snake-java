@@ -41,7 +41,7 @@ public class Snake {
             port = "8080";
         }
         port(Integer.parseInt(port));
-        get("/", (req, res) -> "Your Battlesnake is alive!");
+        get("/",  HANDLER::process, JSON_MAPPER::writeValueAsString);
         post("/start", HANDLER::process, JSON_MAPPER::writeValueAsString);
         post("/ping", HANDLER::process, JSON_MAPPER::writeValueAsString);
         post("/move", HANDLER::process, JSON_MAPPER::writeValueAsString);
@@ -71,10 +71,10 @@ public class Snake {
                 String uri = req.uri();
                 LOG.info("{} called with: {}", uri, req.body());
                 Map<String, String> snakeResponse;
-                if (uri.equals("/start")) {
+                if (uri.equals("/")) {
+                    snakeResponse = index();
+                } else if (uri.equals("/start")) {
                     snakeResponse = start(parsedRequest);
-                } else if (uri.equals("/ping")) {
-                    snakeResponse = ping();
                 } else if (uri.equals("/move")) {
                     snakeResponse = move(parsedRequest);
                 } else if (uri.equals("/end")) {
@@ -90,15 +90,23 @@ public class Snake {
             }
         }
 
+    
         /**
-         * The Battlesnake engine calls this function to make sure your snake is
-         * working.
+         * This method is called everytime your Battlesnake is entered into a game.
          * 
-         * @return an dummy response. The Battlesnake engine will not read this data.
+         * Use this method to decide how your Battlesnake is going to look on the board.
+         *
+         * @return a response back to the engine containing the Battlesnake setup
+         *         values.
          */
-        public Map<String, String> ping() {
+        public Map<String, String> index() {
+         
             Map<String, String> response = new HashMap<>();
-            response.put("message", "pong");
+            response.put("apiversion", "1");
+            response.put("author", "");           // TODO: Your Battlesnake Username
+            response.put("color", "#888888");     // TODO: Personalize
+            response.put("headType", "default");  // TODO: Personalize
+            response.put("tailType", "default");  // TODO: Personalize
             return response;
         }
 
@@ -109,17 +117,11 @@ public class Snake {
          *
          * @param startRequest a JSON data map containing the information about the game
          *                     that is about to be played.
-         * @return a response back to the engine containing the Battlesnake setup
-         *         values.
+         * @return responses back to the engine are ignored.
          */
         public Map<String, String> start(JsonNode startRequest) {
             LOG.info("START");
-
-            Map<String, String> response = new HashMap<>();
-            response.put("color", "#888888");
-            response.put("headType", "regular");
-            response.put("tailType", "regular");
-            return response;
+            return EMPTY;
         }
 
         /**
