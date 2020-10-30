@@ -54,7 +54,7 @@ public class Snake {
     public static class Handler {
 
         /**
-         * For the ping request
+         * For the start/end request
          */
         private static final Map<String, String> EMPTY = new HashMap<>();
 
@@ -99,8 +99,7 @@ public class Snake {
          * @return a response back to the engine containing the Battlesnake setup
          *         values.
          */
-        public Map<String, String> index() {
-         
+        public Map<String, String> index() {         
             Map<String, String> response = new HashMap<>();
             response.put("apiversion", "1");
             response.put("author", "");           // TODO: Your Battlesnake Username
@@ -140,6 +139,14 @@ public class Snake {
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
+
+            /*
+                Example how to retrieve data from the request payload:
+
+                String gameId = moveRequest.get("game").get("id").asText();
+                int height = moveRequest.get("board").get("height").asInt();
+                
+            */
 
             String[] possibleMoves = { "up", "down", "left", "right" };
 
