@@ -16,6 +16,8 @@ import static spark.Spark.port;
 import static spark.Spark.post;
 import static spark.Spark.get;
 
+import java.awt.Point;
+
 /**
  * This is a simple Battlesnake server written in Java.
  *
@@ -122,6 +124,58 @@ public class Snake {
             return EMPTY;
         }
 
+
+		/**
+		 * This class holds the
+		 */
+		private class Adjacent {
+			private Point point;
+			private int value;
+			private bool deadTile;
+			// private float preference;
+
+			// constructor
+			public Adjacent(Point point, int value, bool deadTile) {
+				this.point = point;
+				this.value = value;
+				this.deadTile = deadTile;
+			}
+
+			// Getters
+			public Pair<int,int> getPoint() { return point; }
+			public int getValue() { return value; }
+			public bool isDeadTile() { return deadTile; }
+
+			// Setters
+			public void setCoordinate(Pair<int,int> point) { this.point = point; }
+			public void setValue(int value) { this.value = value; }
+			public void setDeadTile(bool deadTile) { this.deadTile = deadTile; }
+		}
+
+		/**
+		 *
+		 */
+
+		private getAdjacent(Point head) {
+			Adjacent[4] adjacent;
+
+			adjacent[0] = new Adjacent(	// up
+				new Point(head.point.x - 1, head.point.p),
+				GameBoardObjects.EMPTY, false);
+			adjacent[1] = new Adjacent(	// right
+				new Point(head.point.x, head.point.p + 1),
+				GameBoardObjects.EMPTY, false);
+			adjacent[2] = new Adjacent(	// down
+				new Point(head.point.x + 1, head.point.p),
+				GameBoardObjects.EMPTY, false);
+			adjacent[3] = new Adjacent(	// left
+				new Point(head.point.x, head.point.p - 1),
+				GameBoardObjects.EMPTY, false);
+
+			return adjacent;
+		}
+
+
         /**
          * This method is called on every turn of a game. It's how your snake decides
          * where to move.
@@ -145,17 +199,29 @@ public class Snake {
                 String gameId = moveRequest.get("game").get("id").asText();
                 int height = moveRequest.get("board").get("height").asInt();
 
+				0 - Empty
+				1 - Our snake head
+				2 -
+
             */
+
+			// Eliminate all lethal moves
+
+			// get all adjacent tiles by storing their coordinates
+			Adjacent[4] adjacent = getAdjacent(getHead());
+
+
 
             String[] possibleMoves = { "up", "down", "left", "right" };
 
             // Choose a random direction to move in
             int choice = new Random().nextInt(possibleMoves.length);
-            // String move = possibleMoves[choice];
-			String move = possibleMoves[0];
+            String move = possibleMoves[choice];
 
+			// log the chosen move to the console
             LOG.info("MOVE {}", move);
 
+			// return response
             Map<String, String> response = new HashMap<>();
             response.put("move", move);
             return response;
