@@ -26,6 +26,7 @@ public class Snake {
     private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
     private static final Handler HANDLER = new Handler();
     private static final Logger LOG = LoggerFactory.getLogger(Snake.class);
+    public MapData mapData = new MapData();
 
     /**
      * Main entry point.
@@ -56,6 +57,7 @@ public class Snake {
          * For the start/end request
          */
         private static final Map<String, String> EMPTY = new HashMap<>();
+
 
         /**
          * Generic processor that prints out the request and response from the methods.
@@ -137,7 +139,9 @@ public class Snake {
                 LOG.info("Data: {}", JSON_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(moveRequest));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
-            }
+            } 
+
+            mapData.fillMap(moveRequest);
 
             /*
                 Example how to retrieve data from the request payload:
