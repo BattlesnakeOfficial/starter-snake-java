@@ -18,7 +18,7 @@ import static spark.Spark.get;
 
 /**
  * This is a simple Battlesnake server written in Java.
- * 
+ *
  * For instructions see
  * https://github.com/BattlesnakeOfficial/starter-snake-java/README.md
  */
@@ -89,16 +89,16 @@ public class Snake {
             }
         }
 
-    
+
         /**
          * This method is called everytime your Battlesnake is entered into a game.
-         * 
+         *
          * Use this method to decide how your Battlesnake is going to look on the board.
          *
          * @return a response back to the engine containing the Battlesnake setup
          *         values.
          */
-        public Map<String, String> index() {         
+        public Map<String, String> index() {
             Map<String, String> response = new HashMap<>();
             response.put("apiversion", "1");
             response.put("author", "");           // TODO: Your Battlesnake Username
@@ -110,7 +110,7 @@ public class Snake {
 
         /**
          * This method is called everytime your Battlesnake is entered into a game.
-         * 
+         *
          * Use this method to decide how your Battlesnake is going to look on the board.
          *
          * @param startRequest a JSON data map containing the information about the game
@@ -125,7 +125,7 @@ public class Snake {
         /**
          * This method is called on every turn of a game. It's how your snake decides
          * where to move.
-         * 
+         *
          * Valid moves are "up", "down", "left", or "right".
          *
          * @param moveRequest a map containing the JSON sent to this snake. Use this
@@ -151,7 +151,8 @@ public class Snake {
 
             // Choose a random direction to move in
             int choice = new Random().nextInt(possibleMoves.length);
-            String move = possibleMoves[choice];
+            // String move = possibleMoves[choice];
+			String move = possibleMoves[0];
 
             LOG.info("MOVE {}", move);
 
@@ -162,7 +163,7 @@ public class Snake {
 
         /**
          * This method is called when a game your Battlesnake was in ends.
-         * 
+         *
          * It is purely for informational purposes, you don't have to make any decisions
          * here.
          *
