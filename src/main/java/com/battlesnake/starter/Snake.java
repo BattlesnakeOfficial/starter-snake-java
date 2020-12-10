@@ -16,7 +16,6 @@ import static spark.Spark.port;
 import static spark.Spark.post;
 import static spark.Spark.get;
 
-import java.awt.Point;
 
 /**
  * This is a simple Battlesnake server written in Java.
@@ -123,71 +122,6 @@ public class Snake {
             LOG.info("START");
             return EMPTY;
         }
-
-
-		/**
-		 * This class holds the
-		 */
-		private class Tile {
-			private Point point;
-			private int value;
-			private bool deadTile;
-			// private float preference;
-
-			// constructor
-			public Adjacent(Point point, int value, bool deadTile) {
-				this.point = point;
-				this.value = value;
-				this.deadTile = deadTile;
-			}
-
-			// Getters
-			public Pair<int,int> getPoint() { return point; }
-			public int getValue() { return value; }
-			public bool isDeadTile() { return deadTile; }
-
-			// Setters
-			public void setCoordinate(Pair<int,int> point) { this.point = point; }
-			public void setValue(int value) { this.value = value; }
-			public void setDeadTile(bool deadTile) { this.deadTile = deadTile; }
-		}
-
-		private class Adjacent {
-			private Tile[4];
-
-			public Adjacent(Point p) {
-
-			}
-		}
-
-		/**
-		 *
-		 */
-
-		private Adjacent[] getAdjacent(Point head) {
-			Adjacent[4] adjacent;
-
-			adjacent[0] = new Adjacent(	// up
-				new Point(head.point.x - 1, head.point.p),
-				GameBoardObjects.EMPTY, false);
-			adjacent[1] = new Adjacent(	// right
-				new Point(head.point.x, head.point.p + 1),
-				GameBoardObjects.EMPTY, false);
-			adjacent[2] = new Adjacent(	// down
-				new Point(head.point.x + 1, head.point.p),
-				GameBoardObjects.EMPTY, false);
-			adjacent[3] = new Adjacent(	// left
-				new Point(head.point.x, head.point.p - 1),
-				GameBoardObjects.EMPTY, false);
-
-			return adjacent;
-		}
-
-		private void immediateReduction(Adjacent[] adjacent) {
-			for (Adjacent a : adjacent) {
-
-			}
-		}
 
 
         /**
