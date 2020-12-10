@@ -128,7 +128,7 @@ public class Snake {
 		/**
 		 * This class holds the
 		 */
-		private class Adjacent {
+		private class Tile {
 			private Point point;
 			private int value;
 			private bool deadTile;
@@ -152,11 +152,19 @@ public class Snake {
 			public void setDeadTile(bool deadTile) { this.deadTile = deadTile; }
 		}
 
+		private class Adjacent {
+			private Tile[4];
+
+			public Adjacent(Point p) {
+
+			}
+		}
+
 		/**
 		 *
 		 */
 
-		private getAdjacent(Point head) {
+		private Adjacent[] getAdjacent(Point head) {
 			Adjacent[4] adjacent;
 
 			adjacent[0] = new Adjacent(	// up
@@ -173,6 +181,12 @@ public class Snake {
 				GameBoardObjects.EMPTY, false);
 
 			return adjacent;
+		}
+
+		private void immediateReduction(Adjacent[] adjacent) {
+			for (Adjacent a : adjacent) {
+
+			}
 		}
 
 
@@ -210,6 +224,8 @@ public class Snake {
 			// get all adjacent tiles by storing their coordinates
 			Adjacent[4] adjacent = getAdjacent(getHead());
 
+			// eliminate all tiles that result in immedaite death (ie. wall)
+			immediateReduction(adjacent);
 
 
             String[] possibleMoves = { "up", "down", "left", "right" };
