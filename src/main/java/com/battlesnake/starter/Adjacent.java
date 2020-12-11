@@ -15,6 +15,12 @@ public class Adjacent {
     // private float preference;
 
     // constructor
+	public Tile(Point point) {
+		this.point = new Point(point);
+		this.value = getTileValue(point);
+		this.deadTile = isDeadTile(point));
+	}
+
     public Tile(Point point, int value, boolean deadTile) {
       this.point = point;
       this.value = value;
@@ -52,27 +58,10 @@ public class Adjacent {
 
   public Adjacent(Point head) {
 
-    if (tile.value == enum.death) {
-      tile.deadTile = true;
-    }
-
     // Set all adjacent tiles pont value and enum value
-    // TODO: Set enum value
-    // TODO: corrent the assignment of the position value
-    tile[0] = new Adjacent( // up
-        new Point(head.point.x + 1, head.point.p), GameBoardObjects.EMPTY, false);
-    tile[1] = new Adjacent( // right
-        new Point(head.point.x, head.point.p + 1), GameBoardObjects.EMPTY, false);
-    tile[2] = new Adjacent( // down
-        new Point(head.point.x - 1, head.point.p), GameBoardObjects.EMPTY, false);
-    tile[3] = new Adjacent( // left
-        new Point(head.point.x, head.point.p - 1), GameBoardObjects.EMPTY, false);
-  }
-
-}
-
-private void immediateReduction(Adjacent[] adjacent) {
-  for (Adjacent a : adjacent) {
-
+    tile[0] = new Tile(Point(head.point.x + 1, head.point.y));	// up
+    tile[1] = new Tile(Point(head.point.x, head.point.y + 1));	// right
+    tile[2] = new Tile(Point(head.point.x - 1, head.point.y));	// down
+    tile[3] = new Tile(Point(head.point.x, head.point.y - 1));	// left
   }
 }
