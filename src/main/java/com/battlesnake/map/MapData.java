@@ -1,5 +1,7 @@
 package com.battlesnake.map;
+
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 
 public class MapData {
 
@@ -15,14 +17,53 @@ public class MapData {
 
   public void fillMap(JsonNode moveRequest) {
     resetMap();
-    // TODO parse json here
 
-    JsonNode snakes = moveRequest.get("board").get("snakes");
+    // for (JsonNode snake : snakes) {
 
-    for(JsonNode snake : snakes) {
-
-    }
+    // }
   
+    JsonNode board = moveRequest.get("board");
+    ArrayNode snakesArrayNode = (ArrayNode) board.get("snakes");
+    
+    ArrayNode snakeBody;
+    JsonNode snake;
+    JsonNode coordinate;
+    JsonNode snakeHead;
+
+    // Gets the snakes 
+    for (int i = 0; i < snakesArrayNode.size(); i++) {
+      snake = snakesArrayNode.get(i);
+      snakeBody = (ArrayNode) snake.get("body");
+      
+      // Gets the snake's bodies 
+      for (int j = 0; j < snakeBody.size(); j++) {
+        coordinate = snakeBody.get(j);
+        // TODO change number assignment to enum value
+        // Gets the x and y coordinates of the body and places it into the array
+        map[coordinate.get("x").asInt()][coordinate.get("y").asInt()] = 2;
+      }
+      snakeHead = snake.get("head");
+      // TODO change number assignment to enum value
+      // Gets the x and y coordinates of snake head and places it into the array
+      map[snakeHead.get("x").asInt()][snakeHead.get("y").asInt()] = 1;
+    }
+
+    ArrayNode foodArrayNode = (ArrayNode) board.get("food");
+    JsonNode food;
+
+    // Gets all the food
+    for (int i = 0; i < foodArrayNode.size(); i++) {
+      food = foodArrayNode.get(i);
+      // Gets the x and y coordinates of the food and places it into the array
+      map[food.get("x").asInt()][food.get("y").asInt()] = 3;
+    }
+
+    JsonNode you = moverequest.get("you");
+    JsonNode youHead = you.get("head");
+    // Gets the x and y coordinates of our snake head and places it into the array
+    map[youHead.get("x").asInt()][youHead.get("y").asInt()] = 4;
+    
+    
   
   
   
