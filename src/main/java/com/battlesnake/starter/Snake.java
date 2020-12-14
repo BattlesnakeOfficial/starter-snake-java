@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import com.battlesnake.map.MapData;
+
 import static spark.Spark.port;
 import static spark.Spark.post;
 import static spark.Spark.get;
@@ -26,7 +28,7 @@ public class Snake {
     private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
     private static final Handler HANDLER = new Handler();
     private static final Logger LOG = LoggerFactory.getLogger(Snake.class);
-    public MapData mapData = new MapData();
+    public static MapData mapData = new MapData();
 
     /**
      * Main entry point.
