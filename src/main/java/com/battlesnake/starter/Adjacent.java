@@ -59,9 +59,9 @@ public class Adjacent {
   public Adjacent(Point head) {
 
     // Set all adjacent tiles pont value and enum value
-    tile[0] = new Tile(Point(head.getX() + 1, head.getY()));	// up
-    tile[1] = new Tile(Point(head.getX(), head.getY() + 1));	// right
-    tile[2] = new Tile(Point(head.getX() - 1, head.getY()));	// down
-    tile[3] = new Tile(Point(head.getX(), head.getY() - 1));	// left
+    tile[0] = new Tile(new Point(head.getX() + 1, head.getY()));	// up
+    tile[1] = new Tile(new Point(head.getX(), head.getY() + 1));	// right
+    tile[2] = new Tile(new Point(head.getX() - 1, head.getY()));	// down
+    tile[3] = new Tile(new Point(head.getX(), head.getY() - 1));	// left
   }
 }
