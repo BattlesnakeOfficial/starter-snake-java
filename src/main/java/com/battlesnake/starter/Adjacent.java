@@ -15,11 +15,11 @@ public class Adjacent {
     // private float preference;
 
     // constructor
-	public Tile(Point point) {
-		this.point = new Point(point);
-		this.value = getTileValue(point);
-		this.deadTile = isDeadTile(point));
-	}
+    public Tile(Point point) {
+      this.point = new Point(point);
+      // this.value = getTileValue(point);
+      // this.deadTile = isDeadTile(point);
+    }
 
     public Tile(Point point, int value, boolean deadTile) {
       this.point = point;

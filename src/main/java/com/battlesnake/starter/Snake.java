@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import com.battlesnake.starter.Adjacent;
+
 import static spark.Spark.port;
 import static spark.Spark.post;
 import static spark.Spark.get;
@@ -146,32 +148,20 @@ public class Snake {
 
                 String gameId = moveRequest.get("game").get("id").asText();
                 int height = moveRequest.get("board").get("height").asInt();
-
-				0 - Empty
-				1 - Our snake head
-				2 -
-
             */
 
-			// Eliminate all lethal moves
-
-			// get all adjacent tiles by storing their coordinates
-			Adjacent[4] adjacent = getAdjacent(getHead());
-
-			// eliminate all tiles that result in immedaite death (ie. wall)
-			immediateReduction(adjacent);
-
-
             String[] possibleMoves = { "up", "down", "left", "right" };
+
+            Adjacent adjacent = new Adjacent();
 
             // Choose a random direction to move in
             int choice = new Random().nextInt(possibleMoves.length);
             String move = possibleMoves[choice];
 
-			// log the chosen move to the console
+			      // log the chosen move to the console
             LOG.info("MOVE {}", move);
 
-			// return response
+			       // return response
             Map<String, String> response = new HashMap<>();
             response.put("move", move);
             return response;
