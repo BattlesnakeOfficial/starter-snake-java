@@ -1,6 +1,6 @@
 # A simple [Battlesnake](http://play.battlesnake.com) written in Java.
 
-This is a basic implementation of the [Battlesnake API](https://docs.battlesnake.com/snake-api). It's a great starting point for anyone wanting to program their first Battlesnake using Java. It comes ready to use with [Repl.it](https://repl.it) and provides instructions below for getting started. It can also be deployed to [Heroku](https://heroku.com), or any other cloud provider you'd like.
+This is a basic implementation of the [Battlesnake API](https://docs.battlesnake.com/snake-api). It's a great starting point for anyone wanting to program their first Battlesnake using Java. It comes ready to use with [Replit.com](https://replit.com) and provides instructions below for getting started. It can also be deployed to [Heroku](https://heroku.com), or any other cloud provider you'd like.
 
 ### Technologies
 
@@ -12,18 +12,18 @@ This is a basic implementation of the [Battlesnake API](https://docs.battlesnake
 ### Prerequisites
 
 * [Battlesnake Account](https://play.battlesnake.com)
-* [Repl.it Account](https://repl.it)
+* [Replit Account](https://replit.com)
 * [GitHub Account](https://github.com/) and [Git Command Line](https://www.atlassian.com/git/tutorials/install-git)  (optional)
 * [Heroku Account](https://signup.heroku.com/) and [Heroku Command Line](https://devcenter.heroku.com/categories/command-line)  (optional)
 
 
-## Running Your Battlesnake on [Repl.it](https://repl.it)
+## Running Your Battlesnake on [replit.com](https://replit.com)
 
-[![Run on Repl.it](https://repl.it/badge/github/BattlesnakeOfficial/starter-snake-java)](https://repl.it/github/BattlesnakeOfficial/starter-snake-java)
+[![Run on replit.com](https://replit.com/badge/github/BattlesnakeOfficial/starter-snake-java)](https://replit.com/github/BattlesnakeOfficial/starter-snake-java)
 
-1. Login to your [Repl.it](https://repl.it) account.
+1. Login to your [RSeplit.com](https://replit.com) account.
 
-2. Click the 'Run on Repl.it' button above, or visit the following URL: https://repl.it/github/BattlesnakeOfficial/starter-snake-java.
+2. Click the 'Run on replit.com' button above, or visit the following URL: https://replit.com/github/BattlesnakeOfficial/starter-snake-java.
 
 3. You should see your Repl being initialized - this might take a few moments to complete.
 
@@ -39,7 +39,7 @@ This is a basic implementation of the [Battlesnake API](https://docs.battlesnake
     {"apiversion": "1", "author": "", "color": "#888888", "head": "default", "tail": "default"}
     ```
 
-This means your Battlesnake is running correctly on Repl.it.
+This means your Battlesnake is running correctly on replit.com.
 
 **At this point your Battlesnake is live and ready to enter games!**
 
