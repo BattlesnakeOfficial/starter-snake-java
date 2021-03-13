@@ -19,9 +19,9 @@ This is a basic implementation of the [Battlesnake API](https://docs.battlesnake
 
 ## Running Your Battlesnake on [replit.com](https://replit.com)
 
-[![Run on replit.com](https://replit.com/badge/github/BattlesnakeOfficial/starter-snake-java)](https://replit.com/github/BattlesnakeOfficial/starter-snake-java)
+[![Run on Replit.com](https://replit.com/badge/github/BattlesnakeOfficial/starter-snake-java)](https://replit.com/github/BattlesnakeOfficial/starter-snake-java)
 
-1. Login to your [RSeplit.com](https://replit.com) account.
+1. Login to your [Replit.com](https://replit.com) account.
 
 2. Click the 'Run on replit.com' button above, or visit the following URL: https://replit.com/github/BattlesnakeOfficial/starter-snake-java.
 
@@ -39,7 +39,7 @@ This is a basic implementation of the [Battlesnake API](https://docs.battlesnake
     {"apiversion": "1", "author": "", "color": "#888888", "head": "default", "tail": "default"}
     ```
 
-This means your Battlesnake is running correctly on replit.com.
+This means your Battlesnake is running correctly on Replit.com.
 
 **At this point your Battlesnake is live and ready to enter games!**
 
