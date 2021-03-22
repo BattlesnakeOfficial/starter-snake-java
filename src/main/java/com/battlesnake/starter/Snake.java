@@ -12,7 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.lang.Integer;
+import java.lang.String;
 import java.util.ArrayList;
+import java.util.List;
 
 import static spark.Spark.port;
 import static spark.Spark.post;
@@ -145,19 +147,21 @@ public class Snake {
                 e.printStackTrace();
             }
 
+            String[] possibleMoves = { "up", "down", "left", "right" };
+
             // get board info
             JsonNode board = moveRequest.get("board");
             int bHeight = board.get("height").asInt();
             int bWidth = board.get("width").asInt();
 
-            // get info about other items on board
-            JsonNode snakesOnBoard = board.get("snakes").get(0);
             JsonNode foodItems = board.get("food");
 
             // get info about my snake
             JsonNode mySnake = moveRequest.get("you");
             int currX = mySnake.get("head").get("x").asInt();
             int currY = mySnake.get("head").get("y").asInt();
+
+            // get obstractions
             int topBodyX = mySnake.get("body").get(0).get("x").asInt();
             int topBodyY = mySnake.get("body").get(0).get("y").asInt();
             int currHealth = mySnake.get("health").asInt();
@@ -166,50 +170,93 @@ public class Snake {
             int foodX = result[0];
             int foodY = result[1];
 
+            // get info about other items on board
+            JsonNode snakesOnBoard = board.get("snakes");
+            checkPossibleMoves(currX, currY, possibleMoves, snakesOnBoard);
+            try {
+                LOG.info("POSSIBLE MOVES: {}", JSON_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(possibleMoves));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+
             if(currX > foodX){
               // if no obstruction to the left
-              
-              // if no obstruction, return move
-              String move = "left";
-              LOG.info("MOVE {}", move);
-              Map<String, String> response = new HashMap<>();
-              response.put("move", move);
-              return response;
+              if(currX - 1 >= 0 && possibleMoves[2].equals("left")){
+                // if no obstruction, return move
+                String move = "left";
+                LOG.info("MOVE {}", move);
+                Map<String, String> response = new HashMap<>();
+                response.put("move", move);
+                return response;
+              }
             } else if (currX < foodX) {
               // if no obstruction to the right
-
-              String move = "right";
-              LOG.info("MOVE {}", move);
-              Map<String, String> response = new HashMap<>();
-              response.put("move", move);
-              return response;
+              if (currX + 1 <= bWidth && possibleMoves[3].equals("right")){
+                String move = "right";
+                LOG.info("MOVE {}", move);
+                Map<String, String> response = new HashMap<>();
+                response.put("move", move);
+                return response;
+              }
             }
 
             // if couldnt go left or right, either faced an obstruction
             // or currX == foodX so try to move Up/Down
             if(currY > foodY){
               // if no obstruction to the down
-              
-              // if no obstruction, return move
-              String move = "down";
-              LOG.info("MOVE {}", move);
-              Map<String, String> response = new HashMap<>();
-              response.put("move", move);
-              return response;
+              if(currY - 1 >= 0 && possibleMoves[1].equals("down")){
+                // if no obstruction, return move
+                String move = "down";
+                LOG.info("MOVE {}", move);
+                Map<String, String> response = new HashMap<>();
+                response.put("move", move);
+                return response;
+              }
             } else if(currY < foodY){
               // if no obstruction to the up
-              
-              // if no obstruction, return move
-              String move = "up";
-              LOG.info("MOVE {}", move);
-              Map<String, String> response = new HashMap<>();
-              response.put("move", move);
-              return response;
+              if(currY + 1 <= bHeight && possibleMoves[0].equals("up")){
+                // if no obstruction, return move
+                String move = "up";
+                LOG.info("MOVE {}", move);
+                Map<String, String> response = new HashMap<>();
+                response.put("move", move);
+                return response;
+              }
             }
 
-
-
-            String[] possibleMoves = { "up", "down", "left", "right" };
+            for(String s: possibleMoves){
+              if(!s.equals("OBSTRUCTION")){
+                if(s.equals("up")){
+                  if (currY + 1 <= bHeight){
+                  LOG.info("OBSTRUCTIONS AT TWO PLACES, USE OTHER: ", s);
+                  Map<String, String> response = new HashMap<>();
+                  response.put("move", s);
+                  return response;
+                  }
+                } else if (s.equals("down")){
+                  if (currY - 1 >= 0){
+                  LOG.info("OBSTRUCTIONS AT TWO PLACES, USE OTHER: ", s);
+                  Map<String, String> response = new HashMap<>();
+                  response.put("move", s);
+                  return response;
+                  }
+                } else if (s.equals("left")){
+                  if (currX - 1 >= 0){
+                  LOG.info("OBSTRUCTIONS AT TWO PLACES, USE OTHER: ", s);
+                  Map<String, String> response = new HashMap<>();
+                  response.put("move", s);
+                  return response;
+                  }
+                } else if (s.equals("right")){
+                  if (currX + 1 <= bWidth){
+                  LOG.info("OBSTRUCTIONS AT TWO PLACES, USE OTHER: ", s);
+                  Map<String, String> response = new HashMap<>();
+                  response.put("move", s);
+                  return response;
+                  }
+                }
+              }
+            }
 
             // Choose a random direction to move in
             int choice = new Random().nextInt(possibleMoves.length);
@@ -222,6 +269,40 @@ public class Snake {
             return response;
         }
 
+        public void checkPossibleMoves(int currX, int currY, String[] possibleMoves, JsonNode snakesOnBoard){
+
+          int possibleLeft = currX - 1;
+          int possibleUp = currY + 1;
+          int possibleRight = currX + 1;
+          int possibleDown = currY - 1;
+
+          for(int i = 0; i < snakesOnBoard.size(); i++){
+            JsonNode currSnakeBody = snakesOnBoard.get(i).get("body");
+            for(int j = 0; j < currSnakeBody.size(); j++){
+              int snakeX = currSnakeBody.get(j).get("x").asInt();
+              int snakeY = currSnakeBody.get(j).get("y").asInt();
+              // checkLeft
+              if (snakeX == possibleLeft && snakeY == currY){
+                // if snake body is in space of our snakes LEFT
+                // then remove LEFT as a possible move
+                possibleMoves[2] = "OBSTRUCTION";
+              } else if (snakeX == possibleRight && snakeY == currY){
+                // if snake body is in space of our snakes RIGHT
+                // then remove RIGHT as a possible move
+                possibleMoves[3] = "OBSTRUCTION";
+              }else if (snakeY == possibleUp && snakeX == currX){
+                // if snake body is in space of our snakes UP
+                // then remove UP as a possible move
+                possibleMoves[0] = "OBSTRUCTION";
+              } else if (snakeY == possibleDown && snakeX == currX){
+                // if snake body is in space of our snakes DOWN
+                // then remove DOWN as a possible move
+                possibleMoves[1] = "OBSTRUCTION";
+              }
+            }
+          }
+          
+        }
         public int[] findShortestPathToFood(int currX, int currY, JsonNode foodItems){
           int[] shortestPathSoFar = new int[]{Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE};
 
