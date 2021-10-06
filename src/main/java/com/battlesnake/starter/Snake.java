@@ -129,33 +129,27 @@ public class Snake {
 		 * This method is called on every turn of a game. It's how your snake decides
 		 * where to move.
 		 * 
-		 * Valid moves are "up", "down", "left", or "right".
+		 * Use the information in 'moveRequest' to decide your next move. The
+		 * 'moveRequest' variable can be interacted with as
+		 * com.fasterxml.jackson.databind.JsonNode, and contains all of the information
+		 * about the Battlesnake board for each move of the game.
+		 * 
+		 * For a full example of 'json', see
+		 * https://docs.battlesnake.com/references/api/sample-move-request
 		 *
-		 * @param moveRequest a map containing the JSON sent to this snake. Use this
-		 *                    data to decide your next move.
-		 * @return a response back to the engine containing Battlesnake movement values.
+		 * @param moveRequest JsonNoe of all Game Board data as received from the
+		 *                    Battlesnake Engine.
+		 * @return a Map<String,String> response back to the engine the single move to
+		 *         make. One of "up", "down", "left" or "right".
 		 */
 		public Map<String, String> move(JsonNode moveRequest) {
 
-			/*
-			 * moveRequest: JsonNoe of all Game Board data as received from the Battlesnake
-			 * Engine. For a full example of 'json', see
-			 * https://docs.battlesnake.com/references/api/sample-move-request return: A
-			 * String, the single move to make. One of "up", "down", "left" or "right". Use
-			 * the information in 'moveRequest' to decide your next move. The 'moveRequest'
-			 * variable can be interacted with as com.fasterxml.jackson.databind.JsonNode,
-			 * and contains all of the information about the Battlesnake board for each move
-			 * of the game.
-			 */
 			try {
 				LOG.info("Data: {}", JSON_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(moveRequest));
 			} catch (JsonProcessingException e) {
 				LOG.error("Error parsing payload", e);
 			}
-
-			JsonNode head = moveRequest.get("you").get("head");
-			JsonNode body = moveRequest.get("you").get("body");
-
+			
 			/*
 			 * Example how to retrieve data from the request payload:
 			 * 
@@ -165,16 +159,16 @@ public class Snake {
 			 * 
 			 */
 
+			JsonNode head = moveRequest.get("you").get("head");
+			JsonNode body = moveRequest.get("you").get("body");
+			
 			ArrayList<String> possibleMoves = new ArrayList<>(Arrays.asList("up", "down", "left", "right"));
 
 			// Don't allow your Battlesnake to move back in on it's own neck
-
 			avoidMyNeck(head, body, possibleMoves);
 
-			/*
-			 * TODO: Using information from 'data', find the edges of the board and don't
-			 * let your Battlesnake move beyond them board_height = ? board_width = ?
-			 */
+			// TODO: Using information from 'data', find the edges of the board and don't
+			// let your Battlesnake move beyond them board_height = ? board_width = ?
 
 			// TODO Using information from 'data', don't let your Battlesnake pick a move
 			// that would hit its own body
