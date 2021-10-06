@@ -40,7 +40,7 @@ public class Snake {
 			LOG.info("Using default port: {}", port);
 			port = "8080";
 		} else {
-			LOG.info("Found system provided port: {}", port);			
+			LOG.info("Found system provided port: {}", port);
 		}
 		port(Integer.parseInt(port));
 		get("/", HANDLER::process, JSON_MAPPER::writeValueAsString);
@@ -152,7 +152,7 @@ public class Snake {
 			} catch (JsonProcessingException e) {
 				LOG.error("Error parsing payload", e);
 			}
-			
+
 			JsonNode head = moveRequest.get("you").get("head");
 			JsonNode body = moveRequest.get("you").get("body");
 
@@ -168,10 +168,9 @@ public class Snake {
 			ArrayList<String> possibleMoves = new ArrayList<>(Arrays.asList("up", "down", "left", "right"));
 
 			// Don't allow your Battlesnake to move back in on it's own neck
-			
-			avoidMyNeck(head,body,possibleMoves);
-			
-			
+
+			avoidMyNeck(head, body, possibleMoves);
+
 			/*
 			 * TODO: Using information from 'data', find the edges of the board and don't
 			 * let your Battlesnake move beyond them board_height = ? board_width = ?
@@ -198,35 +197,26 @@ public class Snake {
 		}
 
 		/**
-		 * @param head
-		 * @param body
-		 * @param possibleMoves
+		 * Remove the 'neck' direction from the list of possible moves
+		 * 
+		 * @param head          JsonNode of the head position e.g. {"x": 0, "y": 0}
+		 * @param body          JsonNode of x/y coordinates for every segment of a
+		 *                      Battlesnake. e.g. [ {"x": 0, "y": 0}, {"x": 1, "y": 0},
+		 *                      {"x": 2, "y": 0} ]
+		 * @param possibleMoves ArrayList of String. Moves to pick from.
 		 */
-		private void avoidMyNeck(JsonNode head, JsonNode body, ArrayList<String> possibleMoves) {
+		public void avoidMyNeck(JsonNode head, JsonNode body, ArrayList<String> possibleMoves) {
 			JsonNode neck = body.get(1);
-			
+
 			if (neck.get("x").asInt() < head.get("x").asInt()) {
 				possibleMoves.remove("left");
-			}else if(neck.get("x").asInt() > head.get("x").asInt()) {
+			} else if (neck.get("x").asInt() > head.get("x").asInt()) {
 				possibleMoves.remove("right");
-			}else if(neck.get("y").asInt() < head.get("y").asInt()) {
+			} else if (neck.get("y").asInt() < head.get("y").asInt()) {
 				possibleMoves.remove("down");
-			}else if(neck.get("y").asInt() > head.get("y").asInt()) {
+			} else if (neck.get("y").asInt() > head.get("y").asInt()) {
 				possibleMoves.remove("up");
 			}
-			
-			/*
-			 * if my_neck["x"] < my_head["x"]:  # my neck is left of my head
-        possible_moves.remove("left")
-    elif my_neck["x"] > my_head["x"]:  # my neck is right of my head
-        possible_moves.remove("right")
-    elif my_neck["y"] < my_head["y"]:  # my neck is below my head
-        possible_moves.remove("down")
-    elif my_neck["y"] > my_head["y"]:  # my neck is above my head
-        possible_moves.remove("up")
-			 * 
-			 */
-			
 		}
 
 		/**
@@ -240,7 +230,6 @@ public class Snake {
 		 * @return responses back to the engine are ignored.
 		 */
 		public Map<String, String> end(JsonNode endRequest) {
-
 			LOG.info("END");
 			return EMPTY;
 		}
