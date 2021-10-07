@@ -41,7 +41,7 @@ The [Quick Start Coding Guide](https://docs.battlesnake.com/guides/getting-start
 
 3. You should see your Repl being initialized - this might take a few moments to complete.
 
-4. Once your Repl is ready to run, click `Run â–¶ï¸�` at the top of the screen. You should see maven (and any other dependencies) being installed. Once installation is complete, your Battlesnake server will start and you should see the following:
+4. Once your Repl is ready to run, click `Run ▶️` at the top of the screen. You should see maven (and any other dependencies) being installed. Once installation is complete, your Battlesnake server will start and you should see the following:
 
     ```
     [Thread-0] INFO org.eclipse.jetty.server.Server - Started @ms

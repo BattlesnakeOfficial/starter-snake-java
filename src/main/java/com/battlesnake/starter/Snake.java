@@ -137,7 +137,7 @@ public class Snake {
 		 * For a full example of 'json', see
 		 * https://docs.battlesnake.com/references/api/sample-move-request
 		 *
-		 * @param moveRequest JsonNoe of all Game Board data as received from the
+		 * @param moveRequest JsonNode of all Game Board data as received from the
 		 *                    Battlesnake Engine.
 		 * @return a Map<String,String> response back to the engine the single move to
 		 *         make. One of "up", "down", "left" or "right".
@@ -167,16 +167,16 @@ public class Snake {
 			// Don't allow your Battlesnake to move back in on it's own neck
 			avoidMyNeck(head, body, possibleMoves);
 
-			// TODO: Using information from 'data', find the edges of the board and don't
+			// TODO: Using information from 'moveRequest', find the edges of the board and don't
 			// let your Battlesnake move beyond them board_height = ? board_width = ?
 
-			// TODO Using information from 'data', don't let your Battlesnake pick a move
+			// TODO Using information from 'moveRequest', don't let your Battlesnake pick a move
 			// that would hit its own body
 
-			// TODO: Using information from 'data', don't let your Battlesnake pick a move
+			// TODO: Using information from 'moveRequest', don't let your Battlesnake pick a move
 			// that would collide with another Battlesnake
 
-			// TODO: Using information from 'data', make your Battlesnake move towards a
+			// TODO: Using information from 'moveRequest', make your Battlesnake move towards a
 			// piece of food on the board
 
 			// Choose a random direction to move in
